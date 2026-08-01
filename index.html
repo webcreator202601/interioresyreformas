@@ -1,0 +1,530 @@
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><style>@layer base{html,body{margin:0;padding:0;scroll-behavior:smooth;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}header.compact{height:4rem;padding-top:0.5rem;padding-bottom:0.5rem;}.whatsapp-float{transition:transform 0.3s ease;animation:float 3s ease-in-out infinite;}.whatsapp-float:hover{transform:scale(1.1);}
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+@keyframes shimmer {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  animation: shimmer 3s infinite;
+}
+.btn-shimmer:active {
+  transform: scale(0.98);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-tertiary-fixed":"#181c1f","tertiary-container":"#65696c","on-tertiary":"#ffffff","surface-tint":"#805533","error":"#ba1a1a","surface-bright":"#f9f9fc","on-error":"#ffffff","inverse-on-surface":"#f0f0f3","secondary":"#5e5e5b","surface-variant":"#e2e2e5","primary-fixed":"#ffdcc5","surface-container-high":"#e8e8ea","tertiary-fixed":"#e0e3e6","surface-container":"#eeeef0","on-secondary-fixed":"#1b1c19","outline":"#83746b","on-secondary-container":"#63635f","on-primary-fixed-variant":"#653d1e","secondary-fixed-dim":"#c8c6c2","background":"#f9f9fc","surface-container-low":"#f3f3f6","on-primary-fixed":"#301400","outline-variant":"#d5c3b8","on-tertiary-fixed-variant":"#43474a","surface-container-highest":"#e2e2e5","on-primary":"#ffffff","primary-fixed-dim":"#f4bb92","tertiary-fixed-dim":"#c3c7ca","on-primary-container":"#ffe3d1","primary-container":"#8b5e3c","secondary-fixed":"#e4e2dd","on-secondary":"#ffffff","surface-dim":"#dadadc","on-surface":"#1a1c1e","on-error-container":"#93000a","surface-container-lowest":"#ffffff","inverse-primary":"#f4bb92","on-background":"#1a1c1e","secondary-container":"#e1dfdb","on-secondary-fixed-variant":"#474744","on-surface-variant":"#51443c","on-tertiary-container":"#e6e9ec","surface":"#f9f9fc","inverse-surface":"#2f3133","tertiary":"#4d5154","error-container":"#ffdad6","primary":"#6f4627"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"grid-columns":"12","section-gap":"120px","margin-desktop":"64px","unit":"4px","gutter":"24px","margin-mobile":"16px"},"fontFamily":{"body-lg":["Inter"],"headline-lg-mobile":["Montserrat"],"label-sm":["Inter"],"headline-lg":["Montserrat"],"body-md":["Inter"],"display-lg":["Montserrat"],"headline-md":["Montserrat"]},"fontSize":{"body-lg":["18px",{"lineHeight":"1.6","fontWeight":"400"}],"headline-lg-mobile":["28px",{"lineHeight":"1.2","fontWeight":"600"}],"label-sm":["12px",{"lineHeight":"1","letterSpacing":"0.05em","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"1.2","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"1.1","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["24px",{"lineHeight":"1.3","fontWeight":"600"}]}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Montserrat:wght@100..900&amp;display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md transition-all duration-500 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 max-w-[1440px] mx-auto px-margin-desktop flex items-center justify-between gap-gutter transition-all duration-500" id="header-inner"><div class="flex items-center gap-unit"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLsoy1G0maXZa_8hMz8GnbWSmKagypSBOFblth-YfzEKeeF_Ma--9qJpJWSChtRnxGgSRBmREvAFNUpkWTtiqbjIpIfTFUfKVkh7TI00uR12ffq_3bT3y8_UclQFrVDgLv8FYOPtIbovEJGwbEdTHuQmwTHU-TOYqfZM4pMcxM5TVZzy0btYeOBmT9yGTNBuYUiwXTdm1f1KXeHDR7ThSgODkDnEp-fSdJ6E_kLfUXhsZDwv3-PbX_lm"/><span class="font-headline-md text-headline-md text-primary tracking-tight whitespace-nowrap">Cuibany Ávila</span></div><nav class="hidden lg:flex items-center gap-8" data-active-classes="text-primary font-semibold"><a aria-current="page" class="transition-colors uppercase tracking-widest text-primary font-semibold relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-primary after:transition-all hover:after:w-full" data-path="servicios" href="#">Servicios</a><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-widest relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all hover:after:w-full" data-path="portfolio" href="#portfolio">Portfolio</a><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-widest relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all hover:after:w-full" data-path="proceso" href="#proceso">Proceso</a><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-widest relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all hover:after:w-full" data-path="opiniones" href="#opiniones">Opiniones</a><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-widest relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all hover:after:w-full" data-path="contacto" href="#contacto">Contacto</a></nav><div class="flex items-center gap-6"><a class="hidden sm:inline-flex items-center px-6 py-3 bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-widest rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-all group btn-shimmer" data-path="presupuesto" href="#presupuesto">Pide tu presupuesto gratis <span class="material-symbols-outlined ml-2 text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span></a><button class="lg:hidden text-on-surface"><span class="material-symbols-outlined">menu</span></button></div></div></header><main class="flex-grow pt-20 bg-surface"><div class="flex flex-col w-full font-body-md text-on-surface">
+<!-- 1. HERO -->
+<section class="relative w-full min-h-[90vh] flex items-center pt-24 pb-16 overflow-hidden bg-surface -mt-20">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/90 to-surface/40 z-10"></div>
+<div class="w-full h-full bg-cover bg-center object-cover" data-alt="Modern, fully renovated luxury bathroom featuring a free-standing stone tub, warm wood paneling behind a circular backlit mirror, brass shower fixtures, and white subway tiles. Warm, inviting, highly textured architectural photography." style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLtroNOC1cH5Gs3_Vdlnq5NJIFSDv-iSGa97bsrdyZWgKesIw_9OCxyV1igSSqY2QJKAZ-G1rX-unQs_feqFEcn3PCc2VkRn3z8Hsy0xsPurGTPzi_idhmTDYrOoV3-CtuBYe3AILZ-dpCJsFZeE_CA7kQbBi3yvu6Nt5VtfraV3zAwZAeVvSeM4VWCWSa0Euqz1_VSga0-T0sxGaurUf1GSiJJCvbHxKWTPXsyMm6dEN5XJ5HgjtQ3Z');"></div>
+</div>
+<div class="relative z-10 max-w-[1440px] w-full mx-auto px-margin-desktop grid grid-cols-12 gap-gutter">
+<div class="col-span-12 lg:col-span-8 flex flex-col items-start gap-8">
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-surface-container/80 backdrop-blur-sm rounded-full border border-outline-variant shadow-sm animate-fade-in-up hover:scale-105 transition-transform cursor-default">
+<span class="text-[#FABB05] text-lg leading-none">★★★★★</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wide">4,6/5 — 87 reseñas en Google</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface text-4xl md:text-5xl lg:text-[64px] leading-[1.1] tracking-tight animate-fade-in-up" style="animation-delay: 100ms;">
+          Tu baño soñado,<br/>
+<span class="text-primary italic font-serif opacity-90">sin sorpresas ni retrasos.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl animate-fade-in-up" style="animation-delay: 200ms;">
+          Profesionales serios, plazos cumplidos y presupuesto claro en Barcelona. Artesanía y precisión en cada detalle.
+        </p>
+<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto animate-fade-in-up" style="animation-delay: 300ms;">
+<a class="inline-flex items-center justify-center px-8 py-4 bg-primary text-on-primary font-label-sm text-sm uppercase tracking-widest rounded-lg shadow-md hover:bg-primary-container hover:text-on-primary-container hover:-translate-y-1 transition-all duration-300 group btn-shimmer" href="#presupuesto" id="presupuesto-btn">
+            Solicita presupuesto gratis en 24h
+            <span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. TRUST BARRA -->
+<div class="w-full bg-surface-container-low border-y border-outline-variant py-8 overflow-hidden reveal">
+<div class="max-w-[1440px] mx-auto px-margin-desktop flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+<div class="flex flex-wrap justify-center lg:justify-start gap-8 lg:gap-12 shrink-0">
+<div class="flex flex-col items-center lg:items-start group">
+<span class="font-headline-lg text-headline-lg text-primary flex items-center"><span class="counter" data-target="15">0</span>+</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider group-hover:text-primary transition-colors">Años Experiencia</span>
+</div>
+<div class="w-px h-12 bg-outline-variant hidden lg:block"></div>
+<div class="flex flex-col items-center lg:items-start group">
+<span class="font-headline-lg text-headline-lg text-primary flex items-center">+<span class="counter" data-target="500">0</span></span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider group-hover:text-primary transition-colors">Reformas</span>
+</div>
+<div class="w-px h-12 bg-outline-variant hidden lg:block"></div>
+<div class="flex flex-col items-center lg:items-start group">
+<div class="flex items-center gap-1">
+<span class="font-headline-lg text-headline-lg text-primary counter-float" data-target="4.6">0</span>
+<span class="text-[#FABB05] text-xl group-hover:rotate-180 transition-transform duration-500">★</span>
+</div>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider group-hover:text-primary transition-colors">Google Rating</span>
+</div>
+</div>
+<!-- Marquee -->
+<div class="flex-grow overflow-hidden relative w-full lg:w-auto border-l lg:border-outline-variant lg:pl-8">
+<div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-surface-container-low to-transparent z-10 pointer-events-none"></div>
+<div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-surface-container-low to-transparent z-10 pointer-events-none"></div>
+<div class="flex whitespace-nowrap animate-[scroll_30s_linear_infinite] hover:[animation-play-state:paused] gap-16 items-center cursor-default">
+<div class="flex items-center gap-3 transition-transform hover:scale-105">
+<span class="text-[#FABB05]">★★★★★</span>
+<span class="font-body-md text-on-surface italic">"Muy buenos profesionales, eficientes y cumplen los plazos, muy limpios"</span>
+</div>
+<div class="flex items-center gap-3 transition-transform hover:scale-105">
+<span class="text-[#FABB05]">★★★★★</span>
+<span class="font-body-md text-on-surface italic">"Acabados estupendos, trabajo hecho muy fino y limpio."</span>
+</div>
+<!-- Duplicated for seamless loop -->
+<div class="flex items-center gap-3 transition-transform hover:scale-105">
+<span class="text-[#FABB05]">★★★★★</span>
+<span class="font-body-md text-on-surface italic">"Muy buenos profesionales, eficientes y cumplen los plazos, muy limpios"</span>
+</div>
+<div class="flex items-center gap-3 transition-transform hover:scale-105">
+<span class="text-[#FABB05]">★★★★★</span>
+<span class="font-body-md text-on-surface italic">"Acabados estupendos, trabajo hecho muy fino y limpio."</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<style>
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+<!-- 3. SERVICES -->
+<section class="w-full py-section-gap bg-surface relative" id="servicios">
+<div class="max-w-[1440px] mx-auto px-margin-desktop">
+<div class="text-center max-w-2xl mx-auto mb-16 reveal">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Nuestra Especialidad</h2>
+<p class="font-body-lg text-on-surface-variant">Transformamos espacios con precisión artesanal, utilizando materiales de primera y garantizando un acabado impecable.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1: Baños -->
+<div class="group bg-surface-container rounded-xl overflow-hidden border border-outline-variant shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 relative flex flex-col reveal delay-100 cursor-pointer">
+<div class="absolute top-4 right-4 bg-primary text-on-primary px-3 py-1 rounded-full font-label-sm text-xs z-10 shadow-md animate-[float_4s_ease-in-out_infinite]">
+            El más solicitado
+          </div>
+<div class="h-64 overflow-hidden relative">
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10"></div>
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-1000 ease-out" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLvzSPH-cdvf8Zs71V2qsWH9sm97FCDmkXF2hwdbhYrHKCiaHK2cwBzDKna4Oi6X-otGuCQIhBU6C7cjfXFAt7BI4MmhLEI0O5G59mRV0KT0J43FypNSfwHYG80Ewsikq9R7d6MgeWsXuGLOzcTcJcILFnLyHHKWOWD1Fi5XabsgJPCPr_9T5lRMdHFsn0KpAm8kN1PheyJOOWLMtbisK3-KqWGwbQb--G1-OZOdwApYn3QXWPVdRLMV5w');"></div>
+</div>
+<div class="p-8 flex-grow flex flex-col bg-surface-container group-hover:bg-surface transition-colors duration-500">
+<div class="w-12 h-12 bg-surface rounded-full flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-on-primary group-hover:scale-110 transition-all duration-500 border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined">bathtub</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3 group-hover:text-primary transition-colors">Reformas de Baños</h3>
+<p class="font-body-md text-on-surface-variant flex-grow mb-6">
+              Renovación completa o parcial. Cambio de bañera por plato de ducha, alicatados, fontanería e iluminación.
+            </p>
+<a class="inline-flex items-center font-label-sm text-primary uppercase tracking-widest hover:text-primary-container transition-colors group/link" href="#portfolio">
+              Ver ejemplos
+              <span class="material-symbols-outlined ml-1 text-sm group-hover/link:translate-x-2 transition-transform duration-300">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card 2: Cocinas -->
+<div class="group bg-surface rounded-xl overflow-hidden border border-outline-variant shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 flex flex-col reveal delay-200 cursor-pointer">
+<div class="h-64 overflow-hidden relative">
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10"></div>
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-1000 ease-out" data-alt="A modern kitchen renovation with warm wood cabinets, white stone countertops, subtle under-cabinet lighting, and clean minimalist lines. Bright and inviting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDYTZvkorROX0VpuwNMxrDaaRwFxI11nyAINox07I0AMIPr_LhMDL1AjR4l3QSOq2dmxazySgHjnhnh8eEV6odcN9Vy4leZ6XC20I8DeRiIRe7UPFKovFu2LSjaZpPKjItW0BC96Z_vU8pk0Ab6jzUG1SPNmOFe3V2XNNx7UEarlJlOgdY4ab9wR-zwpWO9R9pH_sO82QJhWi2r_8-d7Pg9xPaNw3QGJlNe2MzNhuDjmBP9UWM9Uyw');"></div>
+</div>
+<div class="p-8 flex-grow flex flex-col bg-surface group-hover:bg-surface-container transition-colors duration-500">
+<div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center mb-6 text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary group-hover:scale-110 transition-all duration-500 border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined">countertops</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3 group-hover:text-primary transition-colors">Reformas de Cocinas</h3>
+<p class="font-body-md text-on-surface-variant flex-grow mb-6">
+              Diseño funcional y estético. Mobiliario a medida, encimeras resistentes y optimización del espacio.
+            </p>
+<a class="inline-flex items-center font-label-sm text-on-surface-variant uppercase tracking-widest hover:text-primary transition-colors group/link" href="#contacto">
+              Consultar
+              <span class="material-symbols-outlined ml-1 text-sm group-hover/link:translate-x-2 transition-transform duration-300">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card 3: Integrales -->
+<div class="group bg-surface rounded-xl overflow-hidden border border-outline-variant shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 flex flex-col reveal delay-300 cursor-pointer">
+<div class="h-64 overflow-hidden relative">
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10"></div>
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-1000 ease-out" data-alt="A fully renovated apartment interior showing a seamless flow between a modern living room and a dining area, featuring warm wood floors, neutral tones, and abundant natural light." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAbgPw9nwSUzMBatHpsiEZH5Yk1yz0magiRhJXGfAvZ89DPD_AoaCYGiS8lQX7dsF_Hjs6GQtQnPloWOORDVh_sFrZ8AlU7YtjXPxiF5C8uyrsO-yhviiOofZEQ0Mh-GuMKng300SJqkeW6SKxxMdYFODBayyUXE1pmeEz-AjfWAQVQOzGmYc_CyIzQ9MKSQnJ7WCQ1zLsml09RQoRUktDgdwYYdpRQJpVnu4B7uW1XAb_oR7dcCUE');"></div>
+</div>
+<div class="p-8 flex-grow flex flex-col bg-surface group-hover:bg-surface-container transition-colors duration-500">
+<div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center mb-6 text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary group-hover:scale-110 transition-all duration-500 border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined">home_work</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3 group-hover:text-primary transition-colors">Reformas Integrales</h3>
+<p class="font-body-md text-on-surface-variant flex-grow mb-6">
+              Transformación total de tu vivienda. Coordinación de todos los oficios para un proyecto llave en mano sin estrés.
+            </p>
+<a class="inline-flex items-center font-label-sm text-on-surface-variant uppercase tracking-widest hover:text-primary transition-colors group/link" href="#contacto">
+              Consultar
+              <span class="material-symbols-outlined ml-1 text-sm group-hover/link:translate-x-2 transition-transform duration-300">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. PORTFOLIO & BEFORE/AFTER -->
+<section class="w-full py-section-gap bg-surface-container-low relative" id="portfolio">
+<!-- Decorative element -->
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="max-w-[1440px] mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+<div class="col-span-1 lg:col-span-4 flex flex-col items-start z-10 reveal">
+<span class="font-label-sm text-primary uppercase tracking-widest mb-4 block">Nuestro Trabajo</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">El antes y el después de la calidad</h2>
+<p class="font-body-md text-on-surface-variant mb-8">
+          La diferencia entre una obra estándar y una artesanal está en los acabados invisibles y en la precisión geométrica de las superficies visibles.
+        </p>
+<a class="inline-flex items-center px-6 py-3 border border-outline text-on-surface font-label-sm uppercase tracking-widest rounded-lg hover:bg-primary hover:text-on-primary hover:border-primary transition-all duration-300 group btn-shimmer" href="#presupuesto">
+          ¿Quieres un baño así?
+          <span class="material-symbols-outlined ml-2 text-sm group-hover:rotate-12 transition-transform">calculate</span>
+</a>
+</div>
+<div class="col-span-1 lg:col-span-8 reveal delay-200">
+<!-- Interactive Before/After Slider Mockup (CSS only approach for visualization) -->
+<div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-outline-variant shadow-lg group cursor-ew-resize select-none">
+<!-- After Image (Base) -->
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLvzSPH-cdvf8Zs71V2qsWH9sm97FCDmkXF2hwdbhYrHKCiaHK2cwBzDKna4Oi6X-otGuCQIhBU6C7cjfXFAt7BI4MmhLEI0O5G59mRV0KT0J43FypNSfwHYG80Ewsikq9R7d6MgeWsXuGLOzcTcJcILFnLyHHKWOWD1Fi5XabsgJPCPr_9T5lRMdHFsn0KpAm8kN1PheyJOOWLMtbisK3-KqWGwbQb--G1-OZOdwApYn3QXWPVdRLMV5w');"></div>
+<!-- Before Image (Clipped) -->
+<div class="absolute inset-0 bg-cover bg-center border-r-2 border-primary transition-all duration-700 ease-in-out w-[50%] group-hover:w-[30%] group-hover:scale-105 origin-left" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLsMeNs31igjOxO_xUmi8Zpyc31c5LzQ8X4tYk-P_MUiFhIhazUT-avgTRlwHIJk3R4iK9F1COC0w7EZXzjTUIrjVXTWvFAdMywzrewLE9bO3lcmeHwq7D1nt7RoenF7Ogq_cHJMgaLWHByCfJd9huC9d0su6tDfPmDFc6b8_-nEIUbEVDkJQilGhLupfQkV05eGkbKk4kxtwUCz8TUcOFTaAkJ9zFO3--cOf2JR9wUzFyjVtm4ED36WZg');">
+<div class="absolute top-4 left-4 bg-surface/90 backdrop-blur text-on-surface font-label-sm px-3 py-1 rounded shadow-sm">ANTES</div>
+</div>
+<!-- Handle -->
+<div class="absolute top-1/2 left-[50%] group-hover:left-[30%] -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-primary text-on-primary rounded-full shadow-md flex items-center justify-center transition-all duration-700 ease-in-out pointer-events-none border-4 border-surface group-hover:scale-110">
+<span class="material-symbols-outlined text-xl">swap_horiz</span>
+</div>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur text-on-surface font-label-sm px-3 py-1 rounded shadow-sm z-10">DESPUÉS</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. PROCESS -->
+<section class="w-full py-section-gap bg-surface relative" id="proceso">
+<div class="max-w-[1440px] mx-auto px-margin-desktop">
+<div class="text-center max-w-2xl mx-auto mb-16 reveal">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Nuestro Proceso</h2>
+<p class="font-body-lg text-on-surface-variant">Un flujo de trabajo claro, transparente y sin sorpresas, pensado para tu tranquilidad.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-outline-variant hidden md:block -z-10 -translate-y-1/2"></div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant text-center reveal delay-100 hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-md">1</div>
+<h3 class="font-headline-md text-on-surface mb-2">Visita</h3>
+<p class="font-body-md text-on-surface-variant">Evaluamos el espacio y escuchamos tus necesidades.</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant text-center reveal delay-200 hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-md">2</div>
+<h3 class="font-headline-md text-on-surface mb-2">Proyecto</h3>
+<p class="font-body-md text-on-surface-variant">Presupuesto detallado y propuesta de diseño sin compromiso.</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant text-center reveal delay-300 hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-md">3</div>
+<h3 class="font-headline-md text-on-surface mb-2">Ejecución</h3>
+<p class="font-body-md text-on-surface-variant">Obra artesanal, limpia y cumpliendo plazos estrictos.</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant text-center reveal delay-400 hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-md">4</div>
+<h3 class="font-headline-md text-on-surface mb-2">Entrega</h3>
+<p class="font-body-md text-on-surface-variant">Tu nuevo espacio listo para disfrutar con garantía total.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. TESTIMONIALS -->
+<section class="w-full py-section-gap bg-surface-container-low" id="opiniones">
+<div class="max-w-[1440px] mx-auto px-margin-desktop">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-outline-variant pb-8 reveal">
+<div class="max-w-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Lo que dicen nuestros clientes</h2>
+<p class="font-body-md text-on-surface-variant">Nos enorgullece mantener una reputación impecable basada en el trabajo duro y la transparencia.</p>
+</div>
+<div class="mt-8 md:mt-0 flex items-center gap-4 bg-surface-container px-6 py-4 rounded-xl hover:shadow-md transition-shadow cursor-default group">
+<div class="text-4xl text-[#FABB05] group-hover:scale-110 transition-transform">G</div>
+<div>
+<div class="flex text-[#FABB05] text-lg">★★★★★</div>
+<div class="font-label-sm text-on-surface-variant">4.6/5 en Google Maps</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Review 1 -->
+<div class="bg-surface rounded-xl p-8 border border-outline-variant shadow-sm flex flex-col h-full hover:-translate-y-2 hover:shadow-xl transition-all duration-300 reveal delay-100">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-surface">
+<img alt="Toni" class="w-full h-full object-cover hover:scale-110 transition-transform" src="https://lh3.googleusercontent.com/aida/AP1WRLvAUEmofVNNfgcOF65Uv4S9OS-0jQE1tsH4Toav9ibYmHoNbFWFGOnxiCV4TsIxV3WYIS-fa_FfRinqPx0QHo1kbeR2vBtO0PgJ1kcQF51P3SWXrDsi6BnshQ2qyOnS1giZVmtH-D32Rien_ZV6iSyy-DJtXhUfEEGUSFLMGrGBF2eoyPs4AKn7T9FWtgfo5S3TuxyEjBbIfJ8i8TEUe96mDu0iQUe5rlfiiOu18Rdi-BPrlHqddHqS"/>
+</div>
+<div>
+<h4 class="font-headline-md text-base text-on-surface">Toni</h4>
+<p class="font-label-sm text-on-surface-variant">3 reseñas</p>
+</div>
+</div>
+<div class="flex text-[#FABB05] text-sm mb-4">★★★★★</div>
+<p class="font-body-md text-on-surface-variant italic flex-grow">
+            "Difícil encontrar profesionales honestos que cumplan. Me mantuvieron informado siempre."
+          </p>
+</div>
+<!-- Review 2 -->
+<div class="bg-surface rounded-xl p-8 border border-outline-variant shadow-sm flex flex-col h-full hover:-translate-y-2 hover:shadow-xl transition-all duration-300 reveal delay-200">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-full bg-surface-variant flex items-center justify-center text-xl text-on-surface-variant font-headline-md border-2 border-surface">
+              B
+            </div>
+<div>
+<h4 class="font-headline-md text-base text-on-surface">Boki "Toro24"</h4>
+<p class="font-label-sm text-on-surface-variant text-primary">Local Guide · 307 reseñas</p>
+</div>
+</div>
+<div class="flex text-[#FABB05] text-sm mb-4">★★★★★</div>
+<p class="font-body-md text-on-surface-variant italic flex-grow">
+            "Muy contento con el trato de Chari y Toni. Acabados muy limpios."
+          </p>
+<div class="mt-4 w-full h-24 rounded-lg overflow-hidden border border-outline-variant group/img">
+<div class="w-full h-full bg-cover bg-center group-hover/img:scale-110 transition-transform duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLvzSPH-cdvf8Zs71V2qsWH9sm97FCDmkXF2hwdbhYrHKCiaHK2cwBzDKna4Oi6X-otGuCQIhBU6C7cjfXFAt7BI4MmhLEI0O5G59mRV0KT0J43FypNSfwHYG80Ewsikq9R7d6MgeWsXuGLOzcTcJcILFnLyHHKWOWD1Fi5XabsgJPCPr_9T5lRMdHFsn0KpAm8kN1PheyJOOWLMtbisK3-KqWGwbQb--G1-OZOdwApYn3QXWPVdRLMV5w');"></div>
+</div>
+</div>
+<!-- Review 3 -->
+<div class="bg-surface rounded-xl p-8 border border-outline-variant shadow-sm flex flex-col h-full hover:-translate-y-2 hover:shadow-xl transition-all duration-300 reveal delay-300">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-full bg-surface-variant flex items-center justify-center text-xl text-on-surface-variant font-headline-md border-2 border-surface">
+              E
+            </div>
+<div>
+<h4 class="font-headline-md text-base text-on-surface">Eduardo Rodríguez</h4>
+<p class="font-label-sm text-on-surface-variant text-primary">Local Guide · 12 reseñas</p>
+</div>
+</div>
+<div class="flex text-[#FABB05] text-sm mb-4">★★★★★</div>
+<p class="font-body-md text-on-surface-variant italic flex-grow">
+            "Gran reforma a precio competitivo. El equipo es de muy buenos profesionales."
+          </p>
+<div class="mt-4 w-full h-24 rounded-lg overflow-hidden border border-outline-variant opacity-80 group/img">
+<div class="w-full h-full bg-cover bg-center group-hover/img:scale-110 transition-transform duration-700" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLsMeNs31igjOxO_xUmi8Zpyc31c5LzQ8X4tYk-P_MUiFhIhazUT-avgTRlwHIJk3R4iK9F1COC0w7EZXzjTUIrjVXTWvFAdMywzrewLE9bO3lcmeHwq7D1nt7RoenF7Ogq_cHJMgaLWHByCfJd9huC9d0su6tDfPmDFc6b8_-nEIUbEVDkJQilGhLupfQkV05eGkbKk4kxtwUCz8TUcOFTaAkJ9zFO3--cOf2JR9wUzFyjVtm4ED36WZg'); group-hover/img:filter-none"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. CALCULATOR -->
+<section class="w-full py-section-gap bg-surface relative" id="presupuesto">
+<div class="max-w-[1440px] mx-auto px-margin-desktop">
+<div class="bg-surface-container rounded-2xl p-8 md:p-12 border border-outline-variant shadow-lg max-w-4xl mx-auto reveal">
+<div class="text-center mb-8">
+<h2 class="font-headline-lg text-on-surface mb-2">Calcula tu Presupuesto</h2>
+<p class="font-body-md text-on-surface-variant">Obtén una estimación rápida para tu proyecto en Barcelona.</p>
+</div>
+<form class="space-y-8">
+<div>
+<label class="block font-label-sm text-on-surface uppercase tracking-wider mb-4">Tipo de Reforma</label>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="type" type="radio"/>
+<div class="p-4 border border-outline-variant rounded-lg text-center peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary hover:bg-surface-container-high transition-colors">
+              Baño
+            </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="type" type="radio"/>
+<div class="p-4 border border-outline-variant rounded-lg text-center peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary hover:bg-surface-container-high transition-colors">
+              Cocina
+            </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="type" type="radio"/>
+<div class="p-4 border border-outline-variant rounded-lg text-center peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary hover:bg-surface-container-high transition-colors">
+              Integral
+            </div>
+</label>
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface uppercase tracking-wider mb-4 flex justify-between">
+<span>Tamaño Aproximado (m²)</span>
+<span class="text-primary font-bold">15 m²</span>
+</label>
+<input class="w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" max="150" min="5" type="range" value="15"/>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface uppercase tracking-wider mb-4">Nivel de Acabados</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="finish" type="radio"/>
+<div class="p-4 border border-outline-variant rounded-lg text-center peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary hover:bg-surface-container-high transition-colors">
+              Estándar
+            </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="finish" type="radio"/>
+<div class="p-4 border border-outline-variant rounded-lg text-center peer-checked:bg-primary peer-checked:text-on-primary peer-checked:border-primary hover:bg-surface-container-high transition-colors">
+              Premium
+            </div>
+</label>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant">
+<button class="w-full py-4 bg-primary text-on-primary font-label-sm uppercase tracking-widest rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-all shadow-md btn-shimmer" type="button">
+          Calcular Estimación
+        </button>
+</div>
+</form>
+</div>
+</div>
+</section>
+<!-- 8. URGENCY & FINAL CTA -->
+<section class="w-full py-section-gap bg-primary text-on-primary relative overflow-hidden" id="contacto">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-10"></div>
+<div class="max-w-[1440px] mx-auto px-margin-desktop relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="reveal">
+<div class="inline-block px-4 py-2 bg-error text-on-error rounded-full font-label-sm mb-6 animate-pulse">
+        Atención: Plazas limitadas este mes
+      </div>
+<h2 class="font-display-lg text-on-primary mb-6">¿Listo para empezar tu reforma?</h2>
+<p class="font-body-lg text-on-primary-container mb-8">
+        Nuestra agenda se llena rápido. Reserva tu visita gratuita hoy mismo y asegúrate de conseguir el baño de tus sueños sin demoras.
+      </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="inline-flex items-center justify-center px-8 py-4 bg-[#25D366] text-white font-label-sm uppercase tracking-widest rounded-lg hover:bg-[#20bd5a] transition-colors shadow-lg" href="https://wa.me/">
+<span class="material-symbols-outlined mr-2">chat</span> Whatsapp
+        </a>
+<a class="inline-flex items-center justify-center px-8 py-4 bg-surface text-primary font-label-sm uppercase tracking-widest rounded-lg hover:bg-surface-container transition-colors shadow-lg" href="tel:+34930000000">
+<span class="material-symbols-outlined mr-2">call</span> Llamar
+        </a>
+</div>
+</div>
+<div class="bg-surface p-8 rounded-xl text-on-surface shadow-2xl reveal delay-200">
+<h3 class="font-headline-md mb-6">Déjanos tus datos</h3>
+<form class="space-y-4">
+<div>
+<label class="block font-label-sm text-on-surface-variant mb-1">Nombre</label>
+<input class="w-full p-3 rounded-lg border border-outline-variant bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" type="text"/>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface-variant mb-1">Teléfono</label>
+<input class="w-full p-3 rounded-lg border border-outline-variant bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" type="tel"/>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface-variant mb-1">Mensaje (Opcional)</label>
+<textarea class="w-full p-3 rounded-lg border border-outline-variant bg-surface-container focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" rows="3"></textarea>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary font-label-sm uppercase tracking-widest rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-all shadow-md" type="submit">
+          Enviar Petición
+        </button>
+</form>
+</div>
+</div>
+</section>
+</div></main><footer class="w-full bg-surface-container-low pt-section-gap pb-12 border-t border-outline-variant reveal"><div class="max-w-[1440px] mx-auto px-margin-desktop"><div class="grid grid-cols-1 md:grid-cols-12 gap-gutter"><div class="md:col-span-4 space-y-6"><div class="flex items-center gap-2"><img alt="Logo" class="w-6 h-6 rounded-full object-cover hover:rotate-[360deg] transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AP1WRLsoy1G0maXZa_8hMz8GnbWSmKagypSBOFblth-YfzEKeeF_Ma--9qJpJWSChtRnxGgSRBmREvAFNUpkWTtiqbjIpIfTFUfKVkh7TI00uR12ffq_3bT3y8_UclQFrVDgLv8FYOPtIbovEJGwbEdTHuQmwTHU-TOYqfZM4pMcxM5TVZzy0btYeOBmT9yGTNBuYUiwXTdm1f1KXeHDR7ThSgODkDnEp-fSdJ6E_kLfUXhsZDwv3-PbX_lm"/><span class="font-headline-md text-headline-md text-on-surface">Cuibany Ávila</span></div><p class="font-body-md text-body-md text-on-surface-variant max-w-xs">Artesanía moderna y reformas integrales con alma. Transformamos espacios en Barcelona desde la precisión y el diseño.</p><div class="flex gap-4"><a class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary hover:-translate-y-1 transition-all duration-300" href="#"><span class="material-symbols-outlined">share</span></a><a class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary hover:-translate-y-1 transition-all duration-300" href="#"><span class="material-symbols-outlined">mail</span></a><a class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary hover:-translate-y-1 transition-all duration-300" href="#"><span class="material-symbols-outlined">call</span></a></div></div><div class="md:col-span-4 space-y-6"><div><h4 class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-4">Contacto</h4><p class="font-body-md text-body-md text-on-surface mb-2">Passeig de Valldaura, 236, Barcelona</p><p class="font-body-md text-body-md text-on-surface mb-4 font-bold underline underline-offset-4 cursor-pointer hover:text-primary transition-colors">Ver en Google Maps</p><p class="font-body-md text-body-md text-on-surface hover:text-primary transition-colors cursor-pointer">+34 930 00 00 00</p></div><div class="w-full h-32 bg-surface-container rounded-lg overflow-hidden relative border border-outline-variant group"><div class="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=Passeig+de+Valldaura,236,Barcelona&amp;zoom=15&amp;size=400x200&amp;key=YOUR_API_KEY')] bg-cover opacity-50 group-hover:scale-105 transition-transform duration-700"></div><div class="absolute inset-0 flex items-center justify-center"><span class="material-symbols-outlined text-primary scale-150 group-hover:scale-[1.8] group-hover:-translate-y-2 transition-all duration-300">location_on</span></div></div></div><div class="md:col-span-4 flex flex-col justify-between items-start md:items-end"><div><h4 class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-4">Legal</h4><nav class="flex flex-col gap-3 md:items-end"><a class="text-on-surface-variant hover:text-primary text-sm transition-colors hover:translate-x-1 md:hover:-translate-x-1 transform inline-block" href="#">Aviso Legal</a><a class="text-on-surface-variant hover:text-primary text-sm transition-colors hover:translate-x-1 md:hover:-translate-x-1 transform inline-block" href="#">Política de Privacidad</a><a class="text-on-surface-variant hover:text-primary text-sm transition-colors hover:translate-x-1 md:hover:-translate-x-1 transform inline-block" href="#">Cookies</a></nav></div><p class="mt-8 font-label-sm text-label-sm text-outline">© 2024 Cuibany Ávila y Reformas S.L.</p></div></div></div></footer><a class="whatsapp-float fixed bottom-8 right-8 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-xl z-50 hover:bg-[#20bd5a] transition-colors" href="https://wa.me/"><span class="material-symbols-outlined text-4xl">chat</span></a><script>
+    // Header Compact
+    window.addEventListener('scroll',function(){
+      const header=document.querySelector('header');
+      const inner=document.getElementById('header-inner');
+      if(window.scrollY>50){
+        header.classList.add('compact');
+        inner.classList.remove('h-20');
+        inner.classList.add('h-16');
+      }else{
+        header.classList.remove('compact');
+        inner.classList.remove('h-16');
+        inner.classList.add('h-20');
+      }
+    });
+
+    // Intersection Observer for Reveals
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const revealObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('active');
+        
+        // Counter animation if element contains counters
+        const counters = entry.target.querySelectorAll('.counter');
+        if (counters.length > 0) {
+          counters.forEach(counter => {
+            const updateCount = () => {
+              const target = +counter.getAttribute('data-target');
+              const count = +counter.innerText;
+              const inc = target / 40; // Adjust speed
+              if (count < target) {
+                counter.innerText = Math.ceil(count + inc);
+                setTimeout(updateCount, 40);
+              } else {
+                counter.innerText = target;
+              }
+            };
+            updateCount();
+          });
+        }
+        
+        const floatCounters = entry.target.querySelectorAll('.counter-float');
+        if (floatCounters.length > 0) {
+          floatCounters.forEach(counter => {
+            const updateCount = () => {
+              const target = parseFloat(counter.getAttribute('data-target'));
+              const count = parseFloat(counter.innerText);
+              const inc = target / 40;
+              if (count < target) {
+                counter.innerText = (count + inc).toFixed(1);
+                setTimeout(updateCount, 40);
+              } else {
+                counter.innerText = target;
+              }
+            };
+            updateCount();
+          });
+        }
+        
+        observer.unobserve(entry.target);
+      });
+    }, revealOptions);
+    
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script></body></html>
